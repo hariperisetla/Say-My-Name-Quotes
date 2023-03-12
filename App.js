@@ -77,8 +77,7 @@ function HomeScreen({ navigation }) {
           padding: 20,
           justifyContent: "center",
           alignItems: "center",
-          flex: 1,
-          height: 1,
+          // flex: 1,
         }}
       >
         {loading ? (
@@ -88,11 +87,17 @@ function HomeScreen({ navigation }) {
             numColumns={1}
             keyExtractor={({ index }) => index + 1}
             data={quote}
+            contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
             renderItem={({ item }) => (
-              <View style={{}}>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Text
                   style={{
                     // fontFamily: "Poppins_400Regular",
