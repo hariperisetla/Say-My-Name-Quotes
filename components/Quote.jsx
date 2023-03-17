@@ -27,7 +27,7 @@ const Quote = ({ data, onPress }) => {
             // fontSizeAdjust: "inherit",
             // fontWeight: 700,
             textTransform: "capitalize",
-            lineHeight: 55,
+            lineHeight: 45,
           }}
         >
           {data.quote}
@@ -67,29 +67,6 @@ const Quote = ({ data, onPress }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      {/* <View>
-                    <TouchableOpacity
-                      onPress={onPress}
-                      style={{
-                        borderRadius: 50,
-                        backgroundColor: "#45BD6F",
-                        paddingHorizontal: 10,
-                        paddingVertical: 15,
-                        marginHorizontal: 3,
-                        marginVertical: 8,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 20,
-                          fontFamily: "Poppins_700Bold",
-                          textAlign: "center",
-                        }}
-                      >
-                        Random Quote
-                      </Text>
-                    </TouchableOpacity>
-                  </View> */}
     </View>
   );
 };

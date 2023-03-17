@@ -1,30 +1,37 @@
 import React from "react";
+import { Text, View, FlatList, SafeAreaView } from "react-native";
 import { useState, useEffect } from "react";
-import { FlatList, SafeAreaView, View } from "react-native";
-import axios from "axios";
 import Quote from "../components/Quote";
+import axios from "axios";
 
-const HomeScreen = () => {
+const IndividualCharacterScreen = ({ route }) => {
   const [quote, setQuote] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  //   const onRefresh = React.useCallback(() => {
-  //     setRefreshing(true);
-  //     setTimeout(() => {
-  //       fetchQuotes();
-  //       setRefreshing(false);
-  //     }, 2000);
-  //   }, []);
-
-  const fetchQuotes = async () => {
+  const fetchQuoteByCharacter = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
         "https://api.breakingbadquotes.xyz/v1/quotes"
       );
       if (response.status === 200) {
-        setQuote(response.data);
-        setLoading(false);
+        response.data.map((quote) => {
+          if (quote.author === route.params.name) {
+            setQuote(response.data);
+            setLoading(false);
+            // console.log(quote);
+          } else {
+            fetchQuoteByCharacter();
+          }
+          // authorArr.push(quote.author);
+        });
+        // if (response.data.author === "Walter White") {
+        //   setQuote(response.data);
+        //   console.log(quote);
+        //   setLoading(false);
+        // } else {
+        //   fetchQuoteByCharacter();
+        // }
         return;
       } else {
         throw new Error("failed to fetch");
@@ -35,29 +42,19 @@ const HomeScreen = () => {
   };
 
   const onPress = () => {
-    fetchQuotes();
+    fetchQuoteByCharacter();
   };
 
   useEffect(() => {
-    fetchQuotes();
+    fetchQuoteByCharacter();
   }, []);
 
   return (
     <SafeAreaView
       style={{ backgroundColor: "#032202", flex: 1, justifyContent: "center" }}
     >
-      <View
-        style={{
-          // padding: 20,
-          // justifyContent: "center",
-          // alignItems: "center",
-          margin: 2,
-          padding: 0,
-          // flex: 1,
-        }}
-      >
+      <View>
         {loading ? (
-          //   <ActivityIndicator size="large" color="#369457" />
           <Quote
             data={{ quote: "Wait! I am thinking...", author: "It's me!" }}
             onPress={onPress}
@@ -65,7 +62,7 @@ const HomeScreen = () => {
         ) : (
           <FlatList
             numColumns={1}
-            keyExtractor={({ index }) => index + 1 + "rand"}
+            keyExtractor={(item) => item.author}
             data={quote}
             // refreshControl={
             //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -78,4 +75,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default IndividualCharacterScreen;
