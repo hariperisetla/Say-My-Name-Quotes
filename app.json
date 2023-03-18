@@ -4,6 +4,7 @@
     "slug": "Say-My-Name-Quotes",
     "description": "Say My Name - Quotes is a simple app idea to create a random quote generator with the quotes from the famous TV Show Breaking Bad",
     "version": "1.0.0",
+    "owner": "the_phad_company",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
